@@ -1,8 +1,13 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import {
+    CircleCheckIcon,
+    CircleHelpIcon,
+    CircleIcon,
+    Cuboid,
+} from "lucide-react";
 
 import {
     NavigationMenu,
@@ -12,7 +17,8 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
+import { Button } from "../ui/button";
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -50,11 +56,16 @@ const components: { title: string; href: string; description: string }[] = [
         description:
             "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
     },
-]
+];
 
 export function Navbar() {
     return (
         <NavigationMenu viewport={false}>
+            <Link href={"/"}>
+                <div className="flex items-center gap-2 font-edu font-semibold text-2xl">
+                    Cubely <Cuboid size={35} />
+                </div>
+            </Link>
             <NavigationMenuList>
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Home</NavigationMenuTrigger>
@@ -187,8 +198,13 @@ export function Navbar() {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
             </NavigationMenuList>
+            <div>
+                <Button asChild>
+                    <Link href={"/login"}>Login</Link>
+                </Button>
+            </div>
         </NavigationMenu>
-    )
+    );
 }
 
 function ListItem({
@@ -208,5 +224,5 @@ function ListItem({
                 </Link>
             </NavigationMenuLink>
         </li>
-    )
+    );
 }
