@@ -3,6 +3,7 @@ import { Edu_AU_VIC_WA_NT_Hand, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/shared/Navbar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/next"
 
 
 const geistSans = Geist({
@@ -39,6 +40,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
