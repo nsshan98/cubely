@@ -7,39 +7,53 @@ import Image from "next/image"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginFormSchema, LoginFormTypes } from "@/types/authTypes"
+import { signupFormSchema, SignupFormTypes } from "@/types/authTypes"
 import Link from "next/link"
 
-export function LoginForm({
+export function SignupForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
-    const loginForm = useForm<LoginFormTypes>({
+    const signupForm = useForm<SignupFormTypes>({
         defaultValues: {
+            full_name: "",
             email: "",
             password: "",
         },
-        resolver: zodResolver(loginFormSchema)
+        resolver: zodResolver(signupFormSchema)
     })
 
-    const onSubmit = (data: LoginFormTypes) => {
+    const onSubmit = (data: SignupFormTypes) => {
         console.log("Form submitted with data:", data);
     }
     return (
-        <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card className="flex overflow-hidden p-0 w-full lg:w-8/12 h-max mx-auto">
+        <div className={cn("flex flex-col items-center justify-center gap-6", className)} {...props}>
+            <Card className="flex overflow-hidden p-0 w-full lg:w-8/12 h-max">
                 <CardContent className="grid p-0 md:grid-cols-2">
-                    <Form {...loginForm}>
-                        <form className="p-6 md:p-8" onSubmit={loginForm.handleSubmit(onSubmit)}>
+                    <Form {...signupForm}>
+                        <form className="p-6 md:p-8" onSubmit={signupForm.handleSubmit(onSubmit)}>
                             <div className="flex flex-col gap-6">
                                 <div className="flex flex-col items-center text-center">
-                                    <h1 className="text-2xl font-bold">Welcome back</h1>
+                                    <h1 className="text-2xl font-bold">Join with Cubely</h1>
                                     <p className="text-muted-foreground text-balance">
-                                        Login to your Acme Inc account
+                                        Signup for get started with Cubely. It&apos;s free and easy!
                                     </p>
                                 </div>
                                 <FormField
-                                    control={loginForm.control}
+                                    control={signupForm.control}
+                                    name="full_name"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Full Name</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="shadcn" type="email" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={signupForm.control}
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
@@ -52,7 +66,7 @@ export function LoginForm({
                                     )}
                                 />
                                 <FormField
-                                    control={loginForm.control}
+                                    control={signupForm.control}
                                     name="password"
                                     render={({ field }) => (
                                         <FormItem>
@@ -65,7 +79,7 @@ export function LoginForm({
                                     )}
                                 />
                                 <Button type="submit" className="w-full">
-                                    Login
+                                    Signup
                                 </Button>
                                 {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                                     <span className="bg-card text-muted-foreground relative z-10 px-2">
@@ -102,9 +116,9 @@ export function LoginForm({
                                     </Button>
                                 </div> */}
                                 <div className="text-center text-sm">
-                                    Don&apos;t have an account?{" "}
-                                    <Link href="/signup" className="underline underline-offset-4">
-                                        Sign up
+                                    Alrady have an account?{" "}
+                                    <Link href="/login" className="underline underline-offset-4">
+                                        Login
                                     </Link>
                                 </div>
                             </div>
@@ -121,6 +135,10 @@ export function LoginForm({
                     </div>
                 </CardContent>
             </Card>
+            <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
+                By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+                and <a href="#">Privacy Policy</a>.
+            </div>
         </div>
     )
 }
