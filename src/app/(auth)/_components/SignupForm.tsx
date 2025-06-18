@@ -5,10 +5,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { useForm } from "react-hook-form"
+import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupFormSchema, SignupFormTypes } from "@/types/authTypes"
 import Link from "next/link"
+import { useCreateUser } from "@/hooks/reactQuery/authQuery"
+import { toast } from "react-toastify"
 
 export function SignupForm({
     className,
@@ -23,7 +25,20 @@ export function SignupForm({
         resolver: zodResolver(signupFormSchema)
     })
 
-    const onSubmit = (data: SignupFormTypes) => {
+    const { createUserMutation } = useCreateUser()
+
+
+    const onSubmit: SubmitHandler<SignupFormTypes> = async (data) => {
+        createUserMutation.mutate(data, {
+            onSuccess: (response) => {
+                console.log("User created successfully:", response.data);
+                // You can redirect the user or show a success message here
+            },
+            onError: (error) => {
+                toast.error("Error creating user. Please try again.");
+                console.error("Error creating user:", error);
+            }
+        });
         console.log("Form submitted with data:", data);
     }
     return (
@@ -46,7 +61,7 @@ export function SignupForm({
                                         <FormItem>
                                             <FormLabel>Full Name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="shadcn" type="email" {...field} />
+                                                <Input placeholder="shadcn" type="text" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

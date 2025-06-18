@@ -5,6 +5,7 @@ import { Navbar } from "@/components/shared/Navbar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/next"
 import Providers from "./providers";
+import { ToastContainer } from 'react-toastify';
 
 
 const geistSans = Geist({
@@ -41,6 +42,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <ToastContainer />
           <SpeedInsights />
           <Analytics />
         </Providers>
