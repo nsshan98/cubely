@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/shared/Navbar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/next"
+import Providers from "./providers";
 
 
 const geistSans = Geist({
@@ -37,10 +38,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${eduFont.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <SpeedInsights />
-        <Analytics />
+        <Providers>
+          <Navbar />
+          {children}
+          <SpeedInsights />
+          <Analytics />
+        </Providers>
       </body>
     </html>
   );
