@@ -11,6 +11,9 @@ import { signupFormSchema, SignupFormTypes } from "@/types/authTypes"
 import Link from "next/link"
 import { useCreateUser } from "@/hooks/reactQuery/authQuery"
 import { toast } from "react-toastify"
+import { Eye } from 'lucide-react';
+import { EyeOff } from 'lucide-react';
+import { useState } from "react"
 
 export function SignupForm({
     className,
@@ -24,6 +27,8 @@ export function SignupForm({
         },
         resolver: zodResolver(signupFormSchema)
     })
+
+    const [showPassword, setShowPassword] = useState(false)
 
     const { createUserMutation } = useCreateUser()
 
@@ -80,19 +85,24 @@ export function SignupForm({
                                         </FormItem>
                                     )}
                                 />
-                                <FormField
-                                    control={signupForm.control}
-                                    name="password"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Password</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="shadcn" type="password" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                <div className="relative">
+                                    <FormField
+                                        control={signupForm.control}
+                                        name="password"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Password</FormLabel>
+                                                <FormControl className="relative">
+                                                    <Input placeholder="shadcn" type={showPassword ? "text" : "password"} {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <Button className="absolute right-2 top-5.5 bg-transparent border-none hover:bg-transparent" type="button" variant={'outline'} onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <EyeOff size={30} /> : <Eye size={30} />}
+                                    </Button>
+                                </div>
                                 <Button type="submit" className="w-full">
                                     Signup
                                 </Button>
