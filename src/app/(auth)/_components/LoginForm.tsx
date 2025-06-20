@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema, LoginFormTypes } from "@/types/authTypes"
 import Link from "next/link"
+import { doUserSignIn } from "@/action/auth"
 
 export function LoginForm({
     className,
@@ -22,7 +23,20 @@ export function LoginForm({
         resolver: zodResolver(loginFormSchema)
     })
 
-    const onSubmit = (data: LoginFormTypes) => {
+    const onSubmit = async (data: LoginFormTypes) => {
+        // const formData = new FormData();
+        // formData.append("email", data.email);
+        // formData.append("password", data.password);
+        const payload = {
+            email: data.email,
+            password: data.password,
+        }
+        const response = await doUserSignIn(payload)
+        if (response) {
+            console.error("Login failed:", response.error);
+            return;
+        }
+        console.log(response)
         console.log("Form submitted with data:", data);
     }
     return (

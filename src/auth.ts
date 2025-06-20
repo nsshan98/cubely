@@ -56,14 +56,14 @@ export const {
     providers: [
         CredentialsProvider({
             credentials: {
-                phone_number: {},
+                email: {},
                 password: {},
             },
             async authorize(credentials): Promise<User | null> {
                 try {
                     const url: string = `${process.env.API_SERVER_BASE_URL}/auth/login/`;
                     const payload = {
-                        phone_number: credentials?.phone_number,
+                        email: credentials?.email,
                         password: credentials?.password,
                     };
                     //   console.log(payload);
@@ -71,13 +71,15 @@ export const {
                     const res = await axios.post(url, payload);
 
                     // console.log(res, "Res");
-                    //   const userInfo = res.data?.user_info;
+                    const userInfo = res.data;
+                    console.log(userInfo, "User Info");
 
                     return {
-                        accessToken: res.data?.access_token,
-                        refreshToken: res.data?.refresh_token,
-                        ...res.data?.user_info,
-                        subscriptionInfo: res.data?.subscription_info,
+                        // accessToken: res.data?.access_token,
+                        // refreshToken: res.data?.refresh_token,
+                        // ...res.data?.user_info,
+                        // subscriptionInfo: res.data?.subscription_info,
+                        ...res.data,
                     };
                 } catch (error) {
                     //   console.log("Error from server ------->", error);
