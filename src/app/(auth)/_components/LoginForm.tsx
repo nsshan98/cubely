@@ -26,7 +26,7 @@ export function LoginForm({
         console.log("Form submitted with data:", data);
     }
     return (
-        <div className={cn("flex flex-col gap-6", className)} {...props}>
+        <div className={cn("flex flex-col items-center justify-center gap-6 h-dvh my-auto", className)} {...props}>
             <Card className="flex overflow-hidden p-0 w-full lg:w-8/12 h-max mx-auto">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <Form {...loginForm}>

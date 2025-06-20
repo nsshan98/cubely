@@ -24,11 +24,13 @@ export function SignupForm({
             full_name: "",
             email: "",
             password: "",
+            password_confirmation: ""
         },
         resolver: zodResolver(signupFormSchema)
     })
 
     const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const { createUserMutation } = useCreateUser()
 
@@ -47,7 +49,7 @@ export function SignupForm({
         console.log("Form submitted with data:", data);
     }
     return (
-        <div className={cn("flex flex-col items-center justify-center gap-6", className)} {...props}>
+        <div className={cn("flex flex-col items-center justify-center gap-6 h-dvh my-auto", className)} {...props}>
             <Card className="flex overflow-hidden p-0 w-full lg:w-8/12 h-max">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <Form {...signupForm}>
@@ -66,7 +68,7 @@ export function SignupForm({
                                         <FormItem>
                                             <FormLabel>Full Name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="shadcn" type="text" {...field} />
+                                                <Input placeholder="Cubely" type="text" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -79,30 +81,55 @@ export function SignupForm({
                                         <FormItem>
                                             <FormLabel>Email</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="shadcn" type="email" {...field} />
+                                                <Input placeholder="example@email.com" type="email" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-                                <div className="relative">
+                                <div className="relative grid">
                                     <FormField
                                         control={signupForm.control}
                                         name="password"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Password</FormLabel>
-                                                <FormControl className="relative">
-                                                    <Input placeholder="shadcn" type={showPassword ? "text" : "password"} {...field} />
+                                                <FormControl>
+                                                    <Input placeholder="********" type={showPassword ? "text" : "password"} {...field} />
+
                                                 </FormControl>
+                                                <div className="absolute right-2 top-7.5">
+                                                    {showPassword ? <EyeOff size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} />}
+                                                </div>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
-                                    <Button className="absolute right-2 top-5.5 bg-transparent border-none hover:bg-transparent" type="button" variant={'outline'} onClick={() => setShowPassword(!showPassword)}>
-                                        {showPassword ? <EyeOff size={30} /> : <Eye size={30} />}
-                                    </Button>
+
                                 </div>
+
+                                <div className="relative grid">
+                                    <FormField
+                                        control={signupForm.control}
+                                        name="password_confirmation"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Confirm Password</FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="********" type={showConfirmPassword ? "text" : "password"} {...field} />
+
+                                                </FormControl>
+                                                <div className="absolute right-2 top-7.5">
+                                                    {showConfirmPassword ? <EyeOff size={20} onClick={() => setShowConfirmPassword(!showConfirmPassword)} /> : <Eye size={20} onClick={() => setShowConfirmPassword(!showConfirmPassword)} />}
+                                                </div>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                </div>
+
+
                                 <Button type="submit" className="w-full">
                                     Signup
                                 </Button>
