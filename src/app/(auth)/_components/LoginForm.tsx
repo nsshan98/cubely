@@ -10,6 +10,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema, LoginFormTypes } from "@/types/authTypes"
 import Link from "next/link"
 import { doUserSignIn } from "@/action/auth"
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
 
 export function LoginForm({
     className,
@@ -22,6 +24,8 @@ export function LoginForm({
         },
         resolver: zodResolver(loginFormSchema)
     })
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data: LoginFormTypes) => {
         // const formData = new FormData();
@@ -65,19 +69,25 @@ export function LoginForm({
                                         </FormItem>
                                     )}
                                 />
-                                <FormField
-                                    control={loginForm.control}
-                                    name="password"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Password</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="shadcn" type="password" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                <div className="relative grid">
+                                    <FormField
+                                        control={loginForm.control}
+                                        name="password"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Password</FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="********" type={showPassword ? "text" : "password"} {...field} />
+
+                                                </FormControl>
+                                                <div className="absolute right-2 top-7.5">
+                                                    {showPassword ? <EyeOff size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} />}
+                                                </div>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
                                 <Button type="submit" className="w-full">
                                     Login
                                 </Button>

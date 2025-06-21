@@ -66,20 +66,20 @@ export const {
                         email: credentials?.email,
                         password: credentials?.password,
                     };
-                    //   console.log(payload);
+                    // console.log(payload);
 
                     const res = await axios.post(url, payload);
 
                     // console.log(res, "Res");
-                    const userInfo = res.data;
+                    const userInfo = res.data?.data;
                     console.log(userInfo, "User Info");
 
                     return {
-                        // accessToken: res.data?.access_token,
-                        // refreshToken: res.data?.refresh_token,
-                        // ...res.data?.user_info,
-                        // subscriptionInfo: res.data?.subscription_info,
-                        ...res.data,
+                        id: userInfo?.id,
+                        email: userInfo?.email,
+                        name: userInfo?.full_name,
+                        role: userInfo?.role,
+                        status: userInfo?.status,
                     };
                 } catch (error) {
                     //   console.log("Error from server ------->", error);

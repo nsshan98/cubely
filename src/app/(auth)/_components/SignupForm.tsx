@@ -105,7 +105,6 @@ export function SignupForm({
                                             </FormItem>
                                         )}
                                     />
-
                                 </div>
 
                                 <div className="relative grid">

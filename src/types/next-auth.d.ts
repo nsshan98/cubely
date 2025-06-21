@@ -24,18 +24,10 @@ declare module "next-auth" {
     interface User {
         accessToken: string; // Ensure accessToken is on user type
         refreshToken: string;
-        organization_name: string;
-        email: string;
-        phone_number: string;
-        subscriptionInfo?: {
-            subscription_id: string;
-            plan_name: string;
-            start_date: string;
-            end_date: string;
-            is_popular: boolean;
-            active_status: boolean;
-            subscription_status: boolean;
-        };
+        data: {
+            id: string;
+            email: string;
+        }
     }
 }
 
