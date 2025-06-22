@@ -47,7 +47,7 @@ export default async function RootLayout({
           <SessionProvider>
             <Navbar session={session as Session} />
             {children}
-            <ToastContainer />
+            <ToastContainer pauseOnFocusLoss={false} />
             <SpeedInsights />
             <Analytics />
           </SessionProvider>

@@ -24,7 +24,7 @@ export function SignupForm({
             full_name: "",
             email: "",
             password: "",
-            password_confirmation: ""
+            password_confirm: ""
         },
         resolver: zodResolver(signupFormSchema)
     })
@@ -38,6 +38,7 @@ export function SignupForm({
     const onSubmit: SubmitHandler<SignupFormTypes> = async (data) => {
         createUserMutation.mutate(data, {
             onSuccess: (response) => {
+                toast.success("User created successfully!");
                 console.log("User created successfully:", response.data);
                 // You can redirect the user or show a success message here
             },
@@ -50,7 +51,7 @@ export function SignupForm({
     }
     return (
         <div className={cn("flex flex-col items-center justify-center gap-6 h-dvh my-auto", className)} {...props}>
-            <Card className="flex overflow-hidden p-0 w-full lg:w-8/12 h-max">
+            <Card className="flex overflow-scroll p-0 w-full lg:w-8/12 h-max">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <Form {...signupForm}>
                         <form className="p-6 md:p-8" onSubmit={signupForm.handleSubmit(onSubmit)}>
@@ -110,7 +111,7 @@ export function SignupForm({
                                 <div className="relative grid">
                                     <FormField
                                         control={signupForm.control}
-                                        name="password_confirmation"
+                                        name="password_confirm"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Confirm Password</FormLabel>
