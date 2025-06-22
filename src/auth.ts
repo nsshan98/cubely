@@ -75,11 +75,7 @@ export const {
                     console.log(userInfo, "User Info");
 
                     return {
-                        id: userInfo?.id,
-                        email: userInfo?.email,
-                        name: userInfo?.full_name,
-                        role: userInfo?.role,
-                        status: userInfo?.status,
+                        ...res.data?.data
                     };
                 } catch (error) {
                     //   console.log("Error from server ------->", error);

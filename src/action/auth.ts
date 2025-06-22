@@ -1,6 +1,5 @@
 "use server";
 import { signIn, signOut } from "@/auth";
-import { LoginFormTypes } from "@/types/authTypes";
 
 // Sign Out
 export async function doUserLogOut() {
@@ -8,10 +7,9 @@ export async function doUserLogOut() {
     await signOut({ redirectTo: "/login" });
 }
 
-export async function doUserSignIn(data: LoginFormTypes) {
-    const email = data.email as string;
-    const password = data.password as string;
-
+export async function doUserSignIn(formData: FormData) {
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
     try {
         await signIn("credentials", {
             email,

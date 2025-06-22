@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Button } from "../ui/button";
 import { MobileNav } from "./MobileNav";
+import { Session } from "next-auth";
+import { doUserLogOut } from "@/action/auth";
 
 const navItems = [
     {
@@ -50,7 +52,8 @@ const navItems = [
 ]
 
 
-export function Navbar() {
+export function Navbar({ session }: { session: Session }) {
+    console.log(session)
     return (
         <NavigationMenu className="sticky top-0 z-10 bg-blue-300">
             <Link href={"/"}>
@@ -74,6 +77,9 @@ export function Navbar() {
             <div className="flex gap-2">
                 <Button asChild>
                     <Link href={"/login"}>Login</Link>
+                </Button>
+                <Button variant={"destructive"} onClick={() => doUserLogOut()} className="hover:cursor-pointer">
+                    Logout
                 </Button>
                 <div className="lg:hidden">
                     <MobileNav />

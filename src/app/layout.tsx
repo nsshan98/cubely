@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Edu_AU_VIC_WA_NT_Hand, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/shared/Navbar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/next"
 import Providers from "./providers";
 import { ToastContainer } from 'react-toastify';
+import { SessionProvider } from "next-auth/react"
+import { Navbar } from "@/components/shared/Navbar";
+import { Session } from "next-auth";
+import { auth } from "@/auth";
 
 
 const geistSans = Geist({
@@ -29,22 +32,25 @@ export const metadata: Metadata = {
   description: "The Ultimate Cubely Experience",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth()
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${eduFont.variable} antialiased`}
       >
         <Providers>
-          <Navbar />
-          {children}
-          <ToastContainer />
-          <SpeedInsights />
-          <Analytics />
+          <SessionProvider>
+            <Navbar session={session as Session} />
+            {children}
+            <ToastContainer />
+            <SpeedInsights />
+            <Analytics />
+          </SessionProvider>
         </Providers>
       </body>
     </html>

@@ -28,14 +28,11 @@ export function LoginForm({
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data: LoginFormTypes) => {
-        // const formData = new FormData();
-        // formData.append("email", data.email);
-        // formData.append("password", data.password);
-        const payload = {
-            email: data.email,
-            password: data.password,
-        }
-        const response = await doUserSignIn(payload)
+        const formData = new FormData();
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+
+        const response = await doUserSignIn(formData)
         if (response) {
             console.error("Login failed:", response.error);
             return;
