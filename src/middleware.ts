@@ -1,12 +1,12 @@
 import NextAuth from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authConfig } from "./auth.config";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
 const { auth } = NextAuth(authConfig)
 
 export async function middleware(request: NextRequest) {
-    const cookie = await cookies()
+    // const cookie = await cookies()
     const publicRoutes = ['/', '/login', '/signup']
     const session = await auth()
 
