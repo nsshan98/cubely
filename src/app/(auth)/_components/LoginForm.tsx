@@ -12,6 +12,8 @@ import Link from "next/link"
 import { doUserSignIn } from "@/action/auth"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
     className,
@@ -26,19 +28,25 @@ export function LoginForm({
     })
 
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter()
 
     const onSubmit = async (data: LoginFormTypes) => {
-        const formData = new FormData();
-        formData.append("email", data.email);
-        formData.append("password", data.password);
+        try {
+            const formData = new FormData();
+            formData.append("email", data.email);
+            formData.append("password", data.password);
 
-        const response = await doUserSignIn(formData)
-        if (response) {
-            console.error("Login failed:", response.error);
-            return;
+            const response = await doUserSignIn(formData)
+            if (!response?.error) {
+                router.push('/')
+                toast.success('Login Successful')
+            }
+        } catch (error) {
+            if (error) {
+                toast.error('Login Failed. Please check your credentials and try again.')
+            }
+
         }
-        console.log(response)
-        console.log("Form submitted with data:", data);
     }
     return (
         <div className={cn("flex flex-col items-center justify-center gap-6 h-dvh my-auto", className)} {...props}>
@@ -85,8 +93,8 @@ export function LoginForm({
                                         )}
                                     />
                                 </div>
-                                <Button type="submit" className="w-full">
-                                    Login
+                                <Button type="submit" className="w-full" disabled={loginForm.formState.isSubmitting}>
+                                    {loginForm.formState.isSubmitting ? "Logging in..." : "Login"}
                                 </Button>
                                 {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                                     <span className="bg-card text-muted-foreground relative z-10 px-2">
@@ -124,7 +132,10 @@ export function LoginForm({
                                 </div> */}
                                 <div className="text-center text-sm">
                                     Don&apos;t have an account?{" "}
-                                    <Link href="/signup" className="underline underline-offset-4">
+                                    <Link style={{
+                                        cursor: loginForm.formState.isSubmitting ? "not-allowed" : "pointer",
+                                        pointerEvents: loginForm.formState.isSubmitting ? "none" : "auto"
+                                    }} href="/signup" className="underline underline-offset-4">
                                         Sign up
                                     </Link>
                                 </div>
