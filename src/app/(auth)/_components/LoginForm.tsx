@@ -42,7 +42,7 @@ export function LoginForm({
     }
     return (
         <div className={cn("flex flex-col items-center justify-center gap-6 h-dvh my-auto", className)} {...props}>
-            <Card className="flex overflow-hidden p-0 w-full lg:w-8/12 h-max mx-auto">
+            <Card className="flex p-0 w-full lg:w-8/12 h-max mx-auto">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <Form {...loginForm}>
                         <form className="p-6 md:p-8" onSubmit={loginForm.handleSubmit(onSubmit)}>
@@ -60,7 +60,7 @@ export function LoginForm({
                                         <FormItem>
                                             <FormLabel>Email</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="shadcn" type="email" {...field} />
+                                                <Input placeholder="example@email.com" type="email" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

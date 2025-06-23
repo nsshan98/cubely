@@ -51,7 +51,7 @@ export function SignupForm({
     }
     return (
         <div className={cn("flex flex-col items-center justify-center gap-6 h-dvh my-auto", className)} {...props}>
-            <Card className="flex overflow-scroll p-0 w-full lg:w-8/12 h-max">
+            <Card className="flex p-0 w-full lg:w-8/12 h-max">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <Form {...signupForm}>
                         <form className="p-6 md:p-8" onSubmit={signupForm.handleSubmit(onSubmit)}>
