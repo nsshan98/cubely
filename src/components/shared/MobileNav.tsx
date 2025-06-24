@@ -6,46 +6,13 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@radix-ui/react-navigation-menu"
-import { Cuboid, House, Menu } from "lucide-react"
+import { Cuboid, Menu } from "lucide-react"
 import { navigationMenuTriggerStyle } from "../ui/navigation-menu"
 import Link from "next/link"
+import { navItems } from "@/lib/data/navItems"
 
 export function MobileNav() {
 
-    const navItems = [
-        {
-            id: 1,
-            navRoute: 'Home',
-            route: '/',
-            icon: <House />
-        },
-        {
-            id: 2,
-            navRoute: 'About',
-            route: '/about',
-            icon: <House />
-        }, {
-            id: 3,
-            navRoute: 'Menu1',
-            route: '/menu1',
-            icon: <House />
-        }, {
-            id: 4,
-            navRoute: 'Menu2',
-            route: '/menu2',
-            icon: <House />
-        }, {
-            id: 5,
-            navRoute: 'Menu3',
-            route: '/menu3',
-            icon: <House />
-        }, {
-            id: 6,
-            navRoute: 'Menu4',
-            route: '/menu4',
-            icon: <House />
-        },
-    ]
 
 
     return (
@@ -67,7 +34,7 @@ export function MobileNav() {
                                     <NavigationMenuItem key={navigation.id}>
                                         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                             <Button variant={'ghost'} asChild className="w-full justify-start">
-                                                <Link href={navigation.route}>{navigation.icon} {navigation.navRoute}</Link>
+                                                <Link href={navigation.route}>{<navigation.icon />} {navigation.navRoute}</Link>
                                             </Button>
                                         </NavigationMenuLink>
                                     </NavigationMenuItem>

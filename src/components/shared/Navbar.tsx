@@ -15,39 +15,8 @@ import { Button } from '../ui/button';
 import { MobileNav } from './MobileNav';
 import { Session } from 'next-auth';
 import { doUserLogOut } from '@/action/auth';
+import { navItems } from '@/lib/data/navItems';
 
-const navItems = [
-    {
-        id: 1,
-        navRoute: 'Home',
-        route: '/',
-    },
-    {
-        id: 2,
-        navRoute: 'About',
-        route: '/about',
-    },
-    {
-        id: 3,
-        navRoute: 'Menu1',
-        route: '/menu1',
-    },
-    {
-        id: 4,
-        navRoute: 'Menu2',
-        route: '/menu2',
-    },
-    {
-        id: 5,
-        navRoute: 'Menu3',
-        route: '/menu3',
-    },
-    {
-        id: 6,
-        navRoute: 'Menu4',
-        route: '/menu4',
-    },
-];
 
 export function Navbar({ session }: { session: Session }) {
     console.log(session);

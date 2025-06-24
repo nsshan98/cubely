@@ -7,7 +7,7 @@ const { auth } = NextAuth(authConfig)
 
 export async function middleware(request: NextRequest) {
     // const cookie = await cookies()
-    const publicRoutes = ['/', '/login', '/signup']
+    const publicRoutes = ['/', '/login', '/signup', '/onboarding']
     const session = await auth()
 
     const isAuthenticated = !!session?.user
