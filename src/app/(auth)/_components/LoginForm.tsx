@@ -14,6 +14,7 @@ import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
+import authImg from '../../../../public/auth-img.png'
 
 export function LoginForm({
     className,
@@ -144,8 +145,8 @@ export function LoginForm({
                     </Form>
                     <div className="bg-muted relative hidden md:block">
                         <Image
-                            src="/login-img.png"
-                            alt="Image"
+                            src={authImg}
+                            alt="auth-img"
                             width={500}
                             height={500}
                             priority
