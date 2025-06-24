@@ -14,6 +14,8 @@ import { toast } from "react-toastify"
 import { Eye } from 'lucide-react';
 import { EyeOff } from 'lucide-react';
 import { useState } from "react"
+import authImg from '../../../../public/auth-img.png'
+
 
 export function SignupForm({
     className,
@@ -178,8 +180,8 @@ export function SignupForm({
                     </Form>
                     <div className="bg-muted relative hidden md:block">
                         <Image
-                            src="/login-img.png"
-                            alt="Image"
+                            src={authImg}
+                            alt="auth-img"
                             width={500}
                             height={500}
                             priority
