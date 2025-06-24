@@ -148,6 +148,7 @@ export function LoginForm({
                             alt="Image"
                             width={500}
                             height={500}
+                            priority
                             className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                         />
                     </div>
