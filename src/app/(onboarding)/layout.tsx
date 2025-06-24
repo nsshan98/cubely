@@ -12,10 +12,8 @@ export default async function OnboardingLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html>
-            <body>
-                {children}
-            </body>
-        </html>
+        <div>
+            {children}
+        </div>
     );
 }
